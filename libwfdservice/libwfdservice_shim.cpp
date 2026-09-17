@@ -16,6 +16,15 @@ using android::sp;
 using android::media::AudioPortFw;
 using android::media::audio::common::AudioPort;
 
+extern "C" android::status_t AudioSystem_setDeviceConnectionState(
+    audio_policy_dev_state_t state, const AudioPort& port, audio_format_t encodedFormat)
+    __asm__("_ZN7android11AudioSystem24setDeviceConnectionStateE24audio_policy_dev_state_tRKNS_5media5audio6common9AudioPortE14audio_format_t");
+
+extern "C" android::status_t AudioSystem_setDeviceConnectionState(
+    audio_policy_dev_state_t state, const AudioPort& port, audio_format_t encodedFormat) {
+    return AudioSystem::setDeviceConnectionState(state, port, encodedFormat, false);
+}
+
 extern "C" int _ZN18WiFiDisplaySession31broadcastWifiDisplayAudioIntentEb(
         WiFiDisplaySession* thisptr, bool enabled) {
     if (thisptr->flags == 0 || thisptr->flags == 2) {
